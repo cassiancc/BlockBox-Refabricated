@@ -27,6 +27,9 @@
     ],
     "modmenu": [
         "vectorwing.blockbox.refabricated.config.ModMenuIntegration"
+    ],
+    "emi": [
+      "vectorwing.blockbox.refabricated.integration.EmiIntegration"
     ]
   },
   "mixins": ["blockbox.mixins.json"],
