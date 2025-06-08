@@ -28,7 +28,7 @@ public class ClothConfigFactory {
     public static Screen create(Screen parent) {
         final var builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(Component.literal("The Block Box"));
+                .setTitle(Component.translatable("itemGroup.blockbox"));
 
         addEntries(Config.class.getFields(), createCategory(null, builder), builder.entryBuilder());
 
