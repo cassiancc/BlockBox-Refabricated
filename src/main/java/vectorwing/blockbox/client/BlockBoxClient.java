@@ -21,7 +21,6 @@ public class BlockBoxClient implements ClientModInitializer {
                 ModBlocks.WAXED_WEATHERED_COPPER_BARS.get(),
                 ModBlocks.WAXED_OXIDIZED_COPPER_BARS.get(),
                 ModBlocks.GOLDEN_BARS.get(),
-                ModBlocks.ROUGH_GLASS_PANE.get(),
                 ModBlocks.BRAZIER.get(),
                 ModBlocks.SOUL_BRAZIER.get(),
 
@@ -67,6 +66,11 @@ public class BlockBoxClient implements ClientModInitializer {
                 ModBlocks.PURPLE_SKY_LANTERN.get(),
                 ModBlocks.MAGENTA_SKY_LANTERN.get(),
                 ModBlocks.PINK_SKY_LANTERN.get()
+        );
+
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
+                ModBlocks.ROUGH_GLASS.get(),
+                ModBlocks.ROUGH_GLASS_PANE.get()
         );
 
     }
