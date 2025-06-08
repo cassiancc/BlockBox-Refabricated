@@ -7,8 +7,12 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
@@ -28,18 +32,16 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
+
+import org.jetbrains.annotations.Nullable;
 import vectorwing.blockbox.common.tag.ModTags;
+import vectorwing.blockbox.refabricated.ItemAbilities;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class BrazierBlock extends Block implements SimpleWaterloggedBlock
 {
@@ -67,14 +69,16 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock
 	}
 
 	@Override
-	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-		if (itemAbility == ItemAbilities.FIRESTARTER_LIGHT && canLight(state)) {
-			return state.setValue(BlockStateProperties.LIT, true);
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (stack.is(ItemAbilities.FIRESTARTER_LIGHT) && canLight(state)) {
+			level.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
+			return ItemInteractionResult.SUCCESS;
 		}
-		if (itemAbility == ItemAbilities.SHOVEL_DOUSE && state.getValue(LIT)) {
-			return state.setValue(BlockStateProperties.LIT, false);
+		if (stack.is(ItemAbilities.SHOVEL_DOUSE) && state.getValue(LIT)) {
+			level.setBlock(pos, state.setValue(BlockStateProperties.LIT, false), 11);
+			return ItemInteractionResult.SUCCESS;
 		}
-		return null;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override

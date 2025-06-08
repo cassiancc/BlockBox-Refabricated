@@ -1,5 +1,6 @@
 package vectorwing.blockbox.common.entity;
 
+import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -14,13 +15,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.util.FakePlayer;
 import vectorwing.blockbox.common.block.SeatBlock;
 import vectorwing.blockbox.common.registry.ModEntityTypes;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class SeatEntity extends Entity
 {

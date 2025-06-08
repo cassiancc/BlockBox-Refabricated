@@ -22,9 +22,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.blockbox.common.entity.SeatEntity;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class SeatBlock extends HorizontalDirectionalBlock
 {

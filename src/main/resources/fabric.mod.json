@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_authors}"
+  ],
+  "contributors": [
+    "${mod_credits}"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/the-block-box-refabricated",
+    "sources": "https://github.com/cassiancc/BlockBox-Refabricated",
+    "issues": "https://github.com/cassiancc/BlockBox-Refabricated/issues"
+  },
+  "license": "${mod_license}",
+  "icon": "assets/blockbox/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "vectorwing.blockbox.BlockBox"
+    ],
+    "client":
+    [
+      "vectorwing.blockbox.client.BlockBoxClient"
+    ]
+  },
+  "mixins": ["blockbox.mixins.json"],
+  "accessWidener": "blockbox.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.16",
+    "fabric-api": "*",
+    "minecraft": "=${minecraft_version}"
+  }
+}

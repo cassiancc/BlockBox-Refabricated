@@ -5,7 +5,11 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
@@ -19,20 +23,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.blockbox.common.registry.ModDamageTypes;
 import vectorwing.blockbox.common.tag.ModTags;
+import vectorwing.blockbox.refabricated.ItemAbilities;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class SpikedPalisadeBlock extends CrossCollisionBlock implements SimpleWaterloggedBlock
 {
@@ -58,19 +61,19 @@ public class SpikedPalisadeBlock extends CrossCollisionBlock implements SimpleWa
 	}
 
 	@Override
-	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (strippedForm == null) {
-			return null;
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
-		if (itemAbility == ItemAbilities.AXE_STRIP) {
-			return strippedForm.get().defaultBlockState()
+		if (stack.is(ItemAbilities.AXE_STRIP)) {
+			level.setBlock(pos, strippedForm.get().defaultBlockState()
 					.setValue(NORTH, state.getValue(NORTH))
 					.setValue(EAST, state.getValue(EAST))
 					.setValue(SOUTH, state.getValue(SOUTH))
 					.setValue(WEST, state.getValue(WEST))
-					.setValue(WATERLOGGED, state.getValue(WATERLOGGED));
+					.setValue(WATERLOGGED, state.getValue(WATERLOGGED)), 11);
 		}
-		return null;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {

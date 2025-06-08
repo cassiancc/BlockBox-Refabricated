@@ -27,21 +27,17 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
-import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.blockbox.common.block.state.PalisadeConnection;
 import vectorwing.blockbox.common.registry.ModBlocks;
 import vectorwing.blockbox.common.registry.ModSounds;
 import vectorwing.blockbox.common.tag.ModTags;
+import vectorwing.blockbox.refabricated.ItemAbilities;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class PalisadeBlock extends CrossCollisionBlock implements SimpleWaterloggedBlock
 {
@@ -91,7 +87,7 @@ public class PalisadeBlock extends CrossCollisionBlock implements SimpleWaterlog
 		if (spikedForm == null) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
-		if (stack.canPerformAction(ItemAbilities.SWORD_DIG) && level.getBlockState(pos.above()).isAir()) {
+		if (stack.is(ItemAbilities.SWORD_DIG) && level.getBlockState(pos.above()).isAir()) {
 			level.playSound(null, pos, ModSounds.ITEM_SWORD_CARVE.get(), SoundSource.BLOCKS, 1.0F, 0.9F);
 			level.addDestroyBlockEffect(pos, state);
 			stack.hurtAndBreak(2, player, LivingEntity.getSlotForHand(hand));
@@ -103,24 +99,16 @@ public class PalisadeBlock extends CrossCollisionBlock implements SimpleWaterlog
 					.setValue(WATERLOGGED, state.getValue(WATERLOGGED)), 11);
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-	}
-
-	@Override
-	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-		if (strippedForm == null) {
-			return null;
-		}
-
-		if (itemAbility == ItemAbilities.AXE_STRIP) {
-			return strippedForm.get().defaultBlockState()
+		if (stack.is(ItemAbilities.AXE_STRIP)) {
+			level.setBlock(pos, strippedForm.get().defaultBlockState()
 					.setValue(TYPE_NORTH, state.getValue(TYPE_NORTH))
 					.setValue(TYPE_EAST, state.getValue(TYPE_EAST))
 					.setValue(TYPE_SOUTH, state.getValue(TYPE_SOUTH))
 					.setValue(TYPE_WEST, state.getValue(TYPE_WEST))
-					.setValue(WATERLOGGED, state.getValue(WATERLOGGED));
+					.setValue(WATERLOGGED, state.getValue(WATERLOGGED)), 11);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		}
-		return null;
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
-# The Block Box
+# The Block Box Refabricated
 A collection of assorted building blocks, furniture and decorations!
+
+## For the official NeoForge version of the mod's GitHub, please go [here](https://github.com/vectorwing/BlockBox/).
 
 ### Overview
 

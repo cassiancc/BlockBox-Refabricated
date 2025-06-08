@@ -1,28 +1,29 @@
 package vectorwing.blockbox;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
+import net.fabricmc.api.ModInitializer;
 import net.neoforged.fml.config.ModConfig;
 import org.slf4j.Logger;
 import vectorwing.blockbox.common.registry.*;
+import vectorwing.blockbox.refabricated.DataMaps;
 
-@Mod(BlockBox.MODID)
-public class BlockBox
+public class BlockBox implements ModInitializer
 {
 	public static final String MODID = "blockbox";
 	public static final Logger LOGGER = LogUtils.getLogger();
 
-	public BlockBox(IEventBus modEventBus, ModContainer modContainer) {
-		modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+	@Override
+	public void onInitialize() {
+		NeoForgeConfigRegistry.INSTANCE.register(MODID, ModConfig.Type.COMMON, Config.SPEC);
 
-		ModBlocks.BLOCKS.register(modEventBus);
-		ModItems.ITEMS.register(modEventBus);
-		ModEntityTypes.ENTITY_TYPES.register(modEventBus);
-		ModSounds.SOUNDS.register(modEventBus);
-		ModParticleTypes.PARTICLE_TYPES.register(modEventBus);
-		ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+		ModBlocks.register();
+		ModItems.register();
+		ModEntityTypes.register();
+		ModSounds.register();
+		ModParticleTypes.register();
+		ModCreativeTabs.register();
+
+		DataMaps.register();
 	}
 }

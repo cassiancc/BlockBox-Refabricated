@@ -6,10 +6,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import vectorwing.blockbox.BlockBox;
 import vectorwing.blockbox.common.event.VanillaTabOrdering;
 import vectorwing.blockbox.common.item.SkyLanternItem;
+import vectorwing.blockbox.refabricated.RegUtils;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -20,11 +19,10 @@ import static vectorwing.blockbox.common.event.VanillaTabOrdering.FUNCTIONAL_BLO
 @SuppressWarnings("unused")
 public class ModItems
 {
-	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(BlockBox.MODID);
 	public static LinkedHashSet<Supplier<? extends Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
 
 	public static Supplier<Item> registerItem(final String name, final Supplier<Item> supplier) {
-		Supplier<Item> block = ITEMS.register(name, supplier);
+		Supplier<Item> block = RegUtils.regItem(name, supplier);
 		CREATIVE_TAB_ITEMS.add(block);
 		return block;
 	}
@@ -36,7 +34,7 @@ public class ModItems
 	}
 
 	public static Supplier<BlockItem> registerSimpleBlockItem(final String name, final Supplier<Block> supplier) {
-		Supplier<BlockItem> block = ITEMS.registerSimpleBlockItem(name, supplier);
+		Supplier<BlockItem> block = RegUtils.regBlockItem(name, supplier);
 		CREATIVE_TAB_ITEMS.add(block);
 		return block;
 	}
@@ -217,4 +215,8 @@ public class ModItems
 	public static final Supplier<Item> PURPLE_SKY_LANTERN = registerItem("purple_sky_lantern", () -> new SkyLanternItem(ModBlocks.PURPLE_SKY_LANTERN.get(), new Item.Properties()), Items.PINK_CANDLE, FUNCTIONAL_BLOCKS);
 	public static final Supplier<Item> MAGENTA_SKY_LANTERN = registerItem("magenta_sky_lantern", () -> new SkyLanternItem(ModBlocks.MAGENTA_SKY_LANTERN.get(), new Item.Properties()), Items.PINK_CANDLE, FUNCTIONAL_BLOCKS);
 	public static final Supplier<Item> PINK_SKY_LANTERN = registerItem("pink_sky_lantern", () -> new SkyLanternItem(ModBlocks.PINK_SKY_LANTERN.get(), new Item.Properties()), Items.PINK_CANDLE, FUNCTIONAL_BLOCKS);
+
+	public static void register() {
+
+	}
 }
