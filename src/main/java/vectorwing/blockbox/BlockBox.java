@@ -1,9 +1,8 @@
 package vectorwing.blockbox;
 
 import com.mojang.logging.LogUtils;
-import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.fabricmc.api.ModInitializer;
-import net.neoforged.fml.config.ModConfig;
+import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import vectorwing.blockbox.common.registry.*;
 import vectorwing.blockbox.refabricated.DataMaps;
@@ -12,10 +11,10 @@ public class BlockBox implements ModInitializer
 {
 	public static final String MODID = "blockbox";
 	public static final Logger LOGGER = LogUtils.getLogger();
+	public static final Config CONFIG = Config.createToml(FabricLoader.getInstance().getConfigDir(), "", MODID, Config.class);
 
 	@Override
 	public void onInitialize() {
-		NeoForgeConfigRegistry.INSTANCE.register(MODID, ModConfig.Type.COMMON, Config.SPEC);
 
 		ModBlocks.register();
 		ModItems.register();

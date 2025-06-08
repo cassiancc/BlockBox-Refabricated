@@ -5,6 +5,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import vectorwing.blockbox.BlockBox;
 import vectorwing.blockbox.Config;
 import vectorwing.blockbox.common.registry.ModItems;
 
@@ -18,7 +19,7 @@ public class CommonEvents
 	// jagged_clay_tiles -> broken_tile_mosaic
 
 	public static void addItemsToVanillaCreativeTabs() {
-		if (!Config.ADD_ITEMS_TO_VANILLA_TABS.get()) {
+		if (!BlockBox.CONFIG.ADD_ITEMS_TO_VANILLA_TABS) {
 			return;
 		}
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(event -> {
