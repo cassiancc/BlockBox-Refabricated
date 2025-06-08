@@ -11,7 +11,7 @@ public class BlockBox implements ModInitializer
 {
 	public static final String MODID = "blockbox";
 	public static final Logger LOGGER = LogUtils.getLogger();
-	public static final Config CONFIG = Config.createToml(FabricLoader.getInstance().getConfigDir(), "", MODID, Config.class);
+	public static final Config CONFIG = Config.createToml(FabricLoader.getInstance().getConfigDir(), "", MODID + "-common", Config.class);
 
 	@Override
 	public void onInitialize() {

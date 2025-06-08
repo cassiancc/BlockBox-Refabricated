@@ -20,11 +20,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "vectorwing.blockbox.BlockBox"
+        "vectorwing.blockbox.BlockBox"
     ],
-    "client":
-    [
-      "vectorwing.blockbox.client.BlockBoxClient"
+    "client": [
+       "vectorwing.blockbox.client.BlockBoxClient"
+    ],
+    "modmenu": [
+        "vectorwing.blockbox.refabricated.config.ModMenuIntegration"
     ]
   },
   "mixins": ["blockbox.mixins.json"],

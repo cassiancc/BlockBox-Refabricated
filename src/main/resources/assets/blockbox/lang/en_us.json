@@ -172,5 +172,9 @@
 
   "blockbox.subtitles.sword.carve": "Sword carves",
 
-  "death.attack.blockbox.palisade": "%1$s was skewered by a spiked palisade"
+  "death.attack.blockbox.palisade": "%1$s was skewered by a spiked palisade",
+
+  "config.blockbox.config.add_items_to_vanilla_tabs": "Add items to vanilla tabs",
+  "config.blockbox.config.add_items_to_vanilla_tabs.description": "Should the items from this mod be organized within vanilla tabs? They will be placed together with similar block sets."
+
 }
